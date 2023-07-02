@@ -1,38 +1,99 @@
-.App {
-  text-align: center;
+body{
+    text-align: center;
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    background-color: #e8e8e8;
+    margin-top: 60px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.logo{
+    height: 50px;
+    width: 50px;
+    align-self: center;
+    margin-left: 30px;
+    object-fit: contain;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbars{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 0 20px;
+    box-shadow: 0 10px 30px rgba(159,162,188,0.15); 
+    background-color: #21222A;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.navbars-items li.is-active::before {
+    opacity: 1;
+    background-color: #00D8FF;
 }
 
-.App-link {
-  color: #61dafb;
+.navbars > div {
+    display: flex;
+    align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbars-items {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+    margin-right: 40px;
+}
+
+.navbars-items li{
+    color: #FFF;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+    margin: 0.6px;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 500;
+    position:relative;
+}
+
+.navbars-items li a{
+    color: inherit;
+    text-decoration: none;
+    padding: 20px;
+    display: block; 
+    position:relative;
+}
+
+.navbars-items li a.is-active,
+.navbars-items li a:hover {
+    color: #00D8FF;
+}
+
+.navbars-items li a::before{
+    content: "";
+    position:absolute;
+    bottom: -6px;
+    left: 20px;
+    width: calc(100% - 40px);
+    height: 5px;
+    background-color: #dfe2ea;
+    border-radius: 8px 8px 0 0;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.navbars-items li a.is-active::before {
+    opacity: 1;
+    background-color: #00D8FF;
+}
+
+
+h1 {
+    margin-left: 25px;
+    color: #00D8FF;
+    font-size: 24px;
+    letter-spacing: 1px;
 }
