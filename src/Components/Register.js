@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import './classes.css';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { Button } from 'primereact/button';
 import { InputMask } from 'primereact/inputmask';
 import { Dropdown } from 'primereact/dropdown';
 import { Calendar } from 'primereact/calendar';
+import { Toast } from 'primereact/toast';
 
 const UserForm = () => {
     const navigate = useNavigate();
@@ -21,6 +22,8 @@ const UserForm = () => {
 
     const [mask, setMask] = useState('');
     const [selectedCountry, setSelectedCountry] = useState(null);
+    const toast = useRef(null);
+
 
     const countryCodes = [
         {name: 'UK', code: '+44', mask: '99999 999999'},
@@ -37,29 +40,43 @@ const UserForm = () => {
     }
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        const userWithFullPhoneNumber = {
-            ...user,
-            phoneNumber: `${selectedCountry.code}${user.phoneNumber.replace(/\s+/g, '')}`,  // combine countryCode and phoneNumber
-        };
-        axios.post('http://localhost:8080/users', userWithFullPhoneNumber)
-            .then(response => {
-                console.log(response.data);
-                // Check if the account was successfully created
-                if (response.status === 200) {
-                    navigate('/login');
+    event.preventDefault();
+    const userWithFullPhoneNumber = {
+        ...user,
+        phoneNumber: `${selectedCountry.code}${user.phoneNumber.replace(/\s+/g, '')}`, 
+    };
+    axios.post('http://localhost:8080/users', userWithFullPhoneNumber)
+        .then(response => {
+            console.log(response.data);
+            if (response.status === 200) {
+                navigate('/login');
+            }
+        })
+        .catch(error => {
+            console.error('There was an error!', error);
+            if (error && error.response) {
+                console.error('Error status code:', error.response.status);
+                if (error.response.status === 400) {
+                    toast.current.show({severity: 'warn', summary: 'Warn Message', detail: 'User with this email is already registered.'});
+                } else {
+                    toast.current.show({severity: 'warn', summary: 'Warn Message', detail: 'An unknown error occurred'});
                 }
-            })
-            .catch(error => {
-                console.error('There was an error!', error);
-            });
+            }
+        });
     }
+
+    
 
     const handleLogin = () => {
         navigate('/Login'); 
     }
+
+
+ 
+
     return (
         <div className="form-container">
+            <Toast ref={toast} />
             <form onSubmit={handleSubmit}>
                 <div className="form-field">
                     <label>Email:</label>
