@@ -22,7 +22,7 @@ const LoginForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post('http://localhost:8080/users/login', credentials)
+        axios.post('https://personalfinanceapp1.azurewebsites.net/users/login', credentials)
             .then(response => {
                 console.log(response.data);
                 if (response.status === 200) {

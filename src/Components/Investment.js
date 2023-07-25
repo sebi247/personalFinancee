@@ -32,7 +32,7 @@ const InvestmentList = () => {
           throw new Error("Investment has already been cashed out");
         }
       
-        axios.post(`http://localhost:8080/investments/${userId}/cashOutInvestment/${investmentId}`)
+        axios.post(`https://personalfinanceapp1.azurewebsites.net/investments/${userId}/cashOutInvestment/${investmentId}`)
           .then(response => {
             if (response.status === 200) {
               console.log('Investment cashed out successfully.');

@@ -21,7 +21,7 @@ const IncomeList = () => {
 
     useEffect(() =>{
         if(userId) {
-            axios.get(`http://localhost:8080/incomes/user/${userId}`)
+            axios.get(`https://personalfinanceapp1.azurewebsites.net/incomes/user/${userId}`)
                 .then(response => {
                     if(response.status === 200){
                         const sortedIncomes = response.data.map(income => ({
@@ -45,7 +45,7 @@ const IncomeList = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post('http://localhost:8080/incomes', { 
+        axios.post('https://personalfinanceapp1.azurewebsites.net/incomes', { 
             amount: newIncome.amount,
             source: newIncome.source,
             userid: userId

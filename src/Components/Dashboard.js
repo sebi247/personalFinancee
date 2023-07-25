@@ -12,7 +12,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         if(userId) {
-            axios.get(`http://localhost:8080/reports/user/${userId}/monthly`)
+            axios.get(`https://personalfinanceapp1.azurewebsites.net/reports/user/${userId}/monthly`)
                 .then(response => {
                     if(response.status === 200){
                         setTotalIncome(response.data.totalIncome);
@@ -27,7 +27,7 @@ export default function Dashboard() {
     }, [userId]);
 
     const handlePdfDownload = () => {
-        window.open(`http://localhost:8080/reports/user/${userId}/monthly/pdf`);
+        window.open(`https://personalfinanceapp1.azurewebsites.net/reports/user/${userId}/monthly/pdf`);
     };
 
     const incomeCard = (

@@ -26,7 +26,7 @@ const ExpenseList = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post('http://localhost:8080/expenses',{
+        axios.post('https://personalfinanceapp1.azurewebsites.net/expenses',{
             amount: newExpense.amount,
             category: newExpense.category,
             userid: userId
